@@ -5,8 +5,12 @@ Create a logical model for a small bookstore. 📚
 
 At the minimum it should have employee, order, sales, customer, and book entities (tables). Determine sensible column and table design based on what you know about these concepts. Keep it simple, but work out sensible relationships to keep tables reasonably sized. Include a date table. There are several tools online you can use, I'd recommend [_Draw.io_](https://www.drawio.com/) or [_LucidChart_](https://www.lucidchart.com/pages/).
 
+![dsi_sql_assignment_ERD.png](./images/dsi_sql_assignment_ERD.png)
+
 ## Question 2
 We want to create employee shifts, splitting up the day into morning and evening. Add this to the ERD.
+
+![dsi_sql_assignment_ERD.png](./images/dsi_sql_assignment_ERD.png)
 
 ## Question 3
 The store wants to keep customer addresses. Propose two architectures for the CUSTOMER_ADDRESS table, one that will retain changes, and another that will overwrite. Which is type 1, which is type 2?
@@ -15,15 +19,40 @@ _Hint, search type 1 vs type 2 slowly changing dimensions._
 
 Bonus: Are there privacy implications to this, why or why not?
 ```
-Your answer...
+Overwrite Changes
+Customer_Address:
+CustomerID (Primary Key, Foreign Key to Customer)
+Address
+City
+PostalCode
+UpdatedAt
 ```
+
+```
+Retain Changes
+Customer_Address:
+AddressID (Primary Key)
+CustomerID (Foreign Key to Customer)
+Address
+City
+PostalCode
+StartDate
+EndDate
+```
+
+## Bonus question: yes. If I were a customer, I would be unconfortable with this store maintaining an address history. Especially in a time where hackers constantly steal data from businesses.
+
 
 ## Question 4
 Review the AdventureWorks Schema [here](https://i.stack.imgur.com/LMu4W.gif)
 
 Highlight at least two differences between it and your ERD. Would you change anything in yours?
 ```
-Your answer...
+Granularity: AdventureWorks has far more detailed tables linking all the business functions together, tying an order to purchasing to HR, etc.. 
+
+Complexity: AdventureWorks has much more use of fact and dimension tables for things like sales and purchasing that wouldn't be needed in a simple model like this book store one.
+
+I might consider adding error handling.
 ```
 
 # Criteria
